@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import '../services/ghibli_service.dart';
-import '../models/species.dart';
+import '../models/person.dart';
 import '../widgets/ghibli_background.dart';
-import '../widgets/species_modal.dart';
+import '../widgets/person_modal.dart';
 
-class SpeciesScreen extends StatelessWidget {
+class PeopleScreen extends StatelessWidget {
   final _service = GhibliService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Studio Ghibli Species"),
+        title: const Text("Studio Ghibli Characters"),
         centerTitle: true,
         backgroundColor: const Color(0xFF00BFFF),
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: GhibliBackground(
-        child: FutureBuilder<List<Species>>(
-          future: _service.fetchSpecies(),
+        child: FutureBuilder<List<Person>>(
+          future: _service.fetchPeople(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -29,10 +29,10 @@ class SpeciesScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final s = snapshot.data![index];
+                final p = snapshot.data![index];
 
                 return GestureDetector(
-                  onTap: () => showSpeciesModal(context, s),
+                  onTap: () => showPersonModal(context, p),
                   child: Card(
                     color: Colors.white.withOpacity(0.95),
                     margin: const EdgeInsets.symmetric(
@@ -42,11 +42,11 @@ class SpeciesScreen extends StatelessWidget {
                     ),
                     child: ListTile(
                       title: Text(
-                        s.name,
+                        p.name,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle:
-                          Text("Type: ${s.classification}"),
+                          Text("Age: ${p.age} • Gender: ${p.gender}"),
                     ),
                   ),
                 );

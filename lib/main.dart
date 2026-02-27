@@ -7,6 +7,8 @@ void main() {
 }
 
 class GhibliApp extends StatelessWidget {
+  const GhibliApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,39 +1,44 @@
 import 'package:flutter/material.dart';
+import '../widgets/app.sidebar.dart';
 import 'films_screen.dart';
-import 'people_screen.dart';
+import 'person_screen.dart';
 import 'locations_screen.dart';
 import 'species_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _index = 0;
+  int selectedIndex = 0;
 
-  final screens = [
+  final List<Widget> screens = [
     FilmsScreen(),
     PeopleScreen(),
     LocationsScreen(),
     SpeciesScreen(),
   ];
 
+  void onItemSelected(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+    Navigator.pop(context); // close the drawer
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[_index],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        onTap: (i) => setState(() => _index = i),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.movie), label: "Films"),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: "Locations"),
-          BottomNavigationBarItem(icon: Icon(Icons.pets), label: "Species"),
-        ],
+      drawer: AppSidebar(onItemSelected: onItemSelected),
+      appBar: AppBar(
+        title: const Text("Ghibli Explorer"),
+      ),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: screens[selectedIndex],
       ),
     );
   }
