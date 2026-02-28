@@ -27,7 +27,7 @@ class FilmsScreen extends StatelessWidget {
                 margin: EdgeInsets.all(12),
                 child: ListTile(
                   title: Text(film.title),
-                  subtitle: Text("Director: ${film.director}"),
+                  subtitle: Text("Release Date: ${film.releaseDate}"),
                   onTap: () {
                     Navigator.push(
                       context,

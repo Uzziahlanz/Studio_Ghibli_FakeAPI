@@ -17,8 +17,12 @@ class FilmDetailScreen extends StatelessWidget {
           children: [
             Text(film.title, style: Theme.of(context).textTheme.titleLarge),
             SizedBox(height: 10),
+            Text("Original Title: ${film.originalTitle}"),
+            Text("Original Title Romanised: ${film.originalTitleRomanised}"),
             Text("Director: ${film.director}"),
             Text("Release: ${film.releaseDate}"),
+            Text("Running time: ${film.running_time}"),
+            Text("RT score: ${film.rt_score}"),
             SizedBox(height: 20),
             Text(film.description),
           ],
